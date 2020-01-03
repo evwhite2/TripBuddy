@@ -1,9 +1,12 @@
-module.exports = function(app) {
+module.exports = function(app){
 
-    db= require("../models");
- 
-  app.get("/", function(req, res) {
-    return res.render("")
+var express = require('express');
+var app = express();
+
+var db= require("../models"); 
+
+  app.get("/", (req, res)=>{
+      res.render('index')
     });
 
   app.get("/users", function(req, res) {

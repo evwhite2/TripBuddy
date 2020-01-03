@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+{{!-- materialize --}}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+{{!-- local css file --}}
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+
+{{!-- jquery --}}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+{{!-- local js file --}}
+    <script src="js/index.js"></script>
+
+    <title>TripBuddy</title>
+
+</head>
+<body>
+
+    
+    <nav  id="bigNav" class="nav-extended">
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo center">Trip Mate</a>
+    </div>
+    <div class="nav-content">
+      <ul class="tabs tabs-transparent">
+        <li class="tab"><a href="users">Users</a></li>
+        <li class="tab"><a href="trips">Trips</a></li>
+        <li class="tab"><a href="interest">Interests</a></li>
+      </ul>
+    </div>
+  </nav>
+ 
+
+
+    <div class="container">
+        
+        <div class="row">
+           {{{body}}}  
+        </div>
+        
+    </div>
+    
+
+</body>
+</html>
