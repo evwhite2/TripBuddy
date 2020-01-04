@@ -1,4 +1,23 @@
+body {
+    display: flex;
+    color: #343434;
+    min-height: 100vh;
+    flex-direction: column;
+}
 
-#bigNav{
+main {
+    flex: 1 0 auto;  
+}
+      
+.page-footer{
+    background-color:  rgb(151, 151, 173);
+}
+
+#bigNav {
     background-color: rgb(151, 151, 173);
+}
+
+#saveUser{
+    background-color: rgb(34, 58, 73);
+    color:whitesmoke;
 }
