@@ -1,19 +1,35 @@
-var db = require("../app/models");
+var db = require("../models");
+var express = require("express");
+var router = express.Router();
 
-module.exports = function(app) {
-    app.get("/api/users", function(req, res) {
-        db.Users.findAll({}).then(function(allusers) {
-          res.json(allusers);
-        });
+var query = {};
+
+router.get("/api/users", function(req, res) {
+    db.User.findAll({}).then(function(allusers) {
+      res.json(allusers);
       });
+    });
 
-    app.post("/api/users", (req, res)=>{
+router.post("/api/users", (req, res)=>{
+    console.log("new user: "+ req.body);
+
+    db.User.create({
+      firstName : req.body.firstName,
+      lastName: req.body.lastName,
+      userName: req.body.userName,
+      email: req.body.email 
+      //should include validation for email and username
+    }).then(function(newUser){
+      res.json(newUser);
+      console.log("added!: "+ newUser)
+      res.end();
+    })
+
+  });
+
+router.delete("/api/users", (req, res)=>{
 
     });
 
-    app.delete("/api/users", (req, res)=>{
 
-    });
-
-    
-};
+  module.exports = router

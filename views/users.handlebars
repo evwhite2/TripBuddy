@@ -1,10 +1,11 @@
 <h4>Current Users</h4>
 <div class="row">
-    <div class="col s12">
+    <div class="col s12"> 
+        {{user}}
         <ul class="userList">
          {{#each user}} 
             {{user.firstName}}
-         {{/each}}  
+         {{/each}} 
         </ul>
     </div>
 </div>
@@ -15,16 +16,20 @@
     <form class="newUserForm">
       <div class="row">
         <div class="input-field col s6">
-            <input id="firstName" type="text" class="validate">
-            <label for="firstName">First Name</label>
+            <input placeholder="first name" id="firstName" type="text" class="validate">
         </div>
         <div class="input-field col s6">
-            <input id="lastName" type="text" class="validate">
-            <label for="lastName">Last Name</label>
+            <input placeholder="last name" id="lastName" type="text" class="validate">
         </div>
         <div class="input-field col s6">
-            <input id="email" type="email" class="validate">
-            <label for="email">Telephone</label>
+            <input placeholder="email" id="email" type="email" class="validate">
+        </div>
+        <div class="input-field col s6">
+            <input placeholder="username" id="userName" type="text" class="validate">
+            
+        </div>
+        <div class= "row">
+            <input  class="waves-effect waves-teal btn-flat" id="saveUser" type ="submit" placeholder="Create new user">
         </div>
       </div>
     </form>

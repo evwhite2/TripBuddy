@@ -1,19 +1,20 @@
-var db = require("../app/models");
+var db = require("../models");
+var express = require("express");
+var router = express.Router();
 
-module.exports = function(app) {
-
-  app.get("/api/trips", function(req, res) {
+  router.get("/api/trips", function(req, res) {
     db.Stops.findAll({}).then(function(allstops) {
       res.json(alltrips);
     });
   });
 
-  app.post("/api/trips", (req, res)=>{
+  router.post("/api/trips", (req, res)=>{
 
   });
   
-  app.delete("/api/trips", (req, res)=>{
+  router.delete("/api/trips", (req, res)=>{
 
   });
 
-}
+
+  module.exports = router;
