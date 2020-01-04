@@ -3,7 +3,7 @@ module.exports = function (sequelize, DataTypes) {
         firstName: DataTypes.STRING,
         lastName: DataTypes.STRING,
         userName: DataTypes.STRING,
-        ennodemail: DataTypes.STRING
+        email: DataTypes.STRING
     });
 
     User.associate = function(models){
@@ -13,3 +13,4 @@ module.exports = function (sequelize, DataTypes) {
     };
     return User;
 };
+
