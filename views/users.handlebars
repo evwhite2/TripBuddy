@@ -1,0 +1,31 @@
+<h4>Current Users</h4>
+<div class="row">
+    <div class="col s12">
+        <ul class="userList">
+         {{#each user}} 
+            {{user.firstName}}
+         {{/each}}  
+        </ul>
+    </div>
+</div>
+
+<h4>Add New User</h4>
+
+<div class="row">
+    <form class="newUserForm">
+      <div class="row">
+        <div class="input-field col s6">
+            <input id="firstName" type="text" class="validate">
+            <label for="firstName">First Name</label>
+        </div>
+        <div class="input-field col s6">
+            <input id="lastName" type="text" class="validate">
+            <label for="lastName">Last Name</label>
+        </div>
+        <div class="input-field col s6">
+            <input id="email" type="email" class="validate">
+            <label for="email">Telephone</label>
+        </div>
+      </div>
+    </form>
+  </div>

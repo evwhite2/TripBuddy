@@ -1,15 +1,19 @@
-var db = require("../models");
+var db = require("../app/models");
 
-// Routes
-// =============================================================
 module.exports = function(app) {
 
-  // GET route for getting all of the todos
-  app.get("/api/all-trips", function(req, res) {
-    // findAll returns all entries for a table when used with no options
+  app.get("/api/trips", function(req, res) {
     db.Stops.findAll({}).then(function(allstops) {
-      // We have access to the todos as an argument inside of the callback function
       res.json(alltrips);
     });
   });
+
+  app.post("/api/trips", (req, res)=>{
+
+  });
+  
+  app.delete("/api/trips", (req, res)=>{
+
+  });
+
 }

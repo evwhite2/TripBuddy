@@ -1,15 +1,19 @@
-var db = require("../models");
+var db = require("../app/models");
 
-// Routes
-// =============================================================
 module.exports = function(app) {
+    app.get("/api/users", function(req, res) {
+        db.Users.findAll({}).then(function(allusers) {
+          res.json(allusers);
+        });
+      });
 
-  // GET route for getting all of the todos
-  app.get("/api/all-users", function(req, res) {
-    // findAll returns all entries for a table when used with no options
-    db.Users.findAll({}).then(function(allusers) {
-      // We have access to the users as an argument inside of the callback function
-      res.json(allusers);
+    app.post("/api/users", (req, res)=>{
+
     });
-  });
-}
+
+    app.delete("/api/users", (req, res)=>{
+
+    });
+
+    
+};
