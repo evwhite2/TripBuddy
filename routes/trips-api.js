@@ -3,7 +3,7 @@ var express = require("express");
 var router = express.Router();
 
   router.get("/api/trips", function(req, res) {
-    db.Stops.findAll({}).then(function(allstops) {
+    db.Trip.findAll({}).then(function(alltrips) {
       res.json(alltrips);
     });
   });
