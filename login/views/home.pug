@@ -1,0 +1,17 @@
+extends layout
+
+mixin message(opp, name)
+    if(opp)
+        h1.greeting Logged in as 
+            span=name
+    else
+        h1.greeting Welcome to Travel Buddy 
+            span=name
+
+append links    
+    li(style = "float: right")
+        a(href = "/logout") Log Out
+block content   
+    .dashboard  
+        .user   
+            +message(opp, name)

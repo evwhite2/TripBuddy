@@ -1,0 +1,13 @@
+CREATE DATABASE IF NOT EXISTS nodelogin;
+
+USE nodelogin;
+
+CREATE TABLE users(
+id INTEGER AUTO_INCREMENT,
+username VARCHAR(20),
+name VARCHAR(30),
+password VARCHAR(30),
+email VARCHAR(250),
+address VARCHAR(100),
+PRIMARY KEY (id)
+);
