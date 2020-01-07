@@ -17,6 +17,11 @@ main {
     background-color: rgb(151, 151, 173);
 }
 
+#editBtn{
+    background-color: rgb(34, 58, 73);
+    color:whitesmoke;    
+}
+
 #saveUser{
     background-color: rgb(34, 58, 73);
     color:whitesmoke;
