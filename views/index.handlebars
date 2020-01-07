@@ -1,2 +1,39 @@
 
-<h3>Welcome to the landing page</h3>
+<div class="row">
+    <div classs= "col s12">
+        <h4>Where you headed?</h4>
+        <p>Input your point A, B, and C for your trip to see what you might find along the way:</p>
+    </div>
+</div>
+
+
+<div class="row">
+    <form id="genRouteForm" class="col s12">
+      <div class="row">
+
+            <div class="input-field col s3">
+            <input id="startPt" type="text" class="validate">
+            <label for="startPt">City A</label>
+            <span class="helper-text" data-error="wrong" data-success="right">Your starting point</span>
+            </div>
+
+            <div class="input-field col s3">
+            <input id="midPt" type="text" class="validate">
+            <label for="midPt">City B</label>
+            <span class="helper-text" data-error="wrong" data-success="right">Somewhere inbetween</span>
+            </div>
+            
+            <div class="input-field col s3">
+            <input id="endPt" type="text" class="validate">
+            <label for="endPt">City C</label>
+            <span class="helper-text" data-error="wrong" data-success="right">Your destination</span>
+            </div>
+        
+            <div class="input-field col s3">
+                <button id="genRoute" class="waves-effect waves-teal btn-flat" type="submit">GO!</button>
+            </div>
+        </div>
+    </form>
+  </div>
+
+<div id="mapid" class="map"></div>
