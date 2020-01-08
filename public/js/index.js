@@ -1,4 +1,7 @@
-//map functionality:
+
+//DO NOT write additional code above this map, otherwise it will not render.
+
+//map:
 var mymap = L.map('mapid').setView([45, -100], 4);
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -8,19 +11,23 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'pk.eyJ1IjoiZXZ3aGl0ZTIiLCJhIjoiY2s1MzRlc2c3MDRzOTNnbnRlNGw5NDBuciJ9.xmFw1AGepu0Rh-jUgjjzjQ'
 }).addTo(mymap);
 
-console.log(L.Routing)
-L.control({
-    waypoints: [
-        L.latLng(40, -95),
-        L.latLng(50, -90)
-    ],
-    routeWhileDragging: true
-}).addTo(mymap);
 
-$("#genRouteForm").on("click", function(event){
+$("#genRouteForm").on("click", function(){
+    $("label").empty();    
+})
+
+$("#genRouteForm").on("submit", function(event){
     event.preventDefault();
 
-    L.circle([45, -100], {radius: 200}).addTo(mymap);
+    var startPt = $("#startPt").val().trim();
+    var midPt = $("#midPt").val().trim();
+    var endPt = $("#endPt").val().trim();
+
+
+
+    // L.circle([45, -100], {radius: 200}).addTo(mymap);
+
+    
 
 })
 

@@ -1,3 +1,11 @@
 -- ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY "root";
 -- Drop database if exists trip_buddy;
 -- create database tripBuddy_db;
+
+-- LOAD DATA INFILE 'C:\ProgramData\MySQL\MySQL Server 8.0\Uploads\uscities2.csv' 
+-- INTO TABLE US_Cities 
+-- FIELDS TERMINATED BY ',' 
+-- ENCLOSED BY '"'
+-- LINES TERMINATED BY '\n'
+-- IGNORE 1 ROWS;
+-- select * from US_Cities;
