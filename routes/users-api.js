@@ -11,13 +11,14 @@ router.get("/api/users", function(req, res) {
     });
 
 router.post("/api/users", (req, res)=>{
-    console.log("new user: "+ req.body);
+    console.log("new user: "+ req.body.userName);
 
     db.User.create({
       firstName : req.body.firstName,
       lastName: req.body.lastName,
       userName: req.body.userName,
-      email: req.body.email 
+      password: req.body.password,
+      email: req.body.email
       //should include validation for email and username
     }).then(function(newUser){
       res.json(newUser);
@@ -27,8 +28,14 @@ router.post("/api/users", (req, res)=>{
 
   });
 
-router.delete("/api/users", (req, res)=>{
-
+router.delete("/api/users/:id", (req, res)=>{
+    db.User.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then((res)=> {
+      res.json(res);
+    })
     });
 
 
