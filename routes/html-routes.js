@@ -3,12 +3,15 @@ var db= require("../models");
 var express = require("express");
 var router = express.Router();
 
+const app = express();
+const sessionChecker = require('../server')
+
 var usersAPI = require("./users-api");
 var tripsAPI = require("./trips-api");
 var stopsAPI = require("./stops-api");
 
   router.get("/", (req, res)=>{
-      res.render('index')
+      res.render('index');
   });
 
   router.get("/users", function(req, res) {
@@ -30,6 +33,11 @@ var stopsAPI = require("./stops-api");
     res.render('interests')
   });
   
+  //set up a home page or dashboard specific to user - can show saved 'trips' from there
+  router.get("/home", function(req, res) {
+    res.render('home');
+  })
+
   router.use(stopsAPI);
     
 
