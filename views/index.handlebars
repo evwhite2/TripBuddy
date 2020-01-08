@@ -9,31 +9,33 @@
 
 <div class="row">
     <form id="genRouteForm" class="col s12">
-      <div class="row">
+      <div class="row center">
 
-            <div class="input-field col s3">
+            <div class="input-field col s4">
             <input id="startPt" type="text" class="validate">
             <label for="startPt">City A</label>
             <span class="helper-text" data-error="wrong" data-success="right">Your starting point</span>
             </div>
 
-            <div class="input-field col s3">
+            <div class="input-field col s4">
             <input id="midPt" type="text" class="validate">
             <label for="midPt">City B</label>
             <span class="helper-text" data-error="wrong" data-success="right">Somewhere inbetween</span>
             </div>
             
-            <div class="input-field col s3">
+            <div class="input-field col s4">
             <input id="endPt" type="text" class="validate">
             <label for="endPt">City C</label>
             <span class="helper-text" data-error="wrong" data-success="right">Your destination</span>
             </div>
         
-            <div class="input-field col s3">
+            <div class="col s12 center">
                 <button id="genRoute" class="waves-effect waves-teal btn-flat" type="submit">GO!</button>
             </div>
         </div>
     </form>
   </div>
+
+    
 
 <div id="mapid" class="map"></div>
