@@ -1,15 +1,22 @@
 var db = require("../models");
 var express = require("express");
+const session = require("express-session");
+const bcrypt = require("bcrypt");
 var router = express.Router();
 
+const sessionChecker = require("../server");
+
 var query = {};
+
+//generate user specific info
+const userContent = { userName: '', loggedin: false, body: 'yo'}
 
 router.get("/api/users", function(req, res) {
     db.User.findAll({}).then(function(allusers) {
       res.json(allusers);
-      });
-    });
-
+      })
+});
+    
 router.post("/api/users", (req, res)=>{
     console.log("new user: "+ req.body);
 
@@ -20,13 +27,17 @@ router.post("/api/users", (req, res)=>{
       password: req.body.password,
       email: req.body.email
       //should include validation for email and username
-    }).then(function(newUser){
-      res.json(newUser);
+    }).then((newUser) => {
+      res.json(newUser)
+     // req.session.newUser = newUser.dataValues  **ERROR MSG: TypeError: Cannot set property 'newUser' of undefined
       console.log("added!: "+ newUser)
+     // res.redirect('/home.handlebars');  **ERROR MSG: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
       res.end();
-    })
-
+    }).catch(function(err) {
+      // if error, print the error details
+      console.log(err, req.body.userName);
   });
+ });
 
 router.delete("/api/users/:id", (req, res)=>{
     db.User.destroy({
