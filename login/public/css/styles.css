@@ -1,0 +1,45 @@
+body {
+    background-color: white;
+    display: flex;
+    color: #343434;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+header{
+    color: rgb(34, 58, 73);
+}
+
+main {
+    flex: 1 0 auto;  
+}
+
+.page-footer{
+    background-color: rgb(94, 165, 115);
+}
+
+#bigNav {
+    background-color: rgb(94, 165, 115);
+    color: rgb(34, 58, 73)
+}
+
+#editBtn{
+    background-color: rgb(34, 58, 73);
+    color:whitesmoke;    
+}
+
+#genRoute{
+    background-color: rgb(34, 58, 73);
+    color:whitesmoke; 
+    padding-left: 50px;
+    padding-right:50px;
+}
+
+#mapid { 
+    height: 500px; 
+}
+
+#saveUser{
+    background-color: rgb(34, 58, 73);
+    color:whitesmoke;
+}
