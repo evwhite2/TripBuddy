@@ -18,7 +18,7 @@ router.get("/api/users", function(req, res) {
 });
     
 router.post("/api/users", (req, res)=>{
-    console.log("new user: "+ req.body.userName);
+    console.log("new user: "+ req.body);
 
     db.User.create({
       firstName : req.body.firstName,

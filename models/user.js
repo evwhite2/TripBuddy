@@ -16,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
         email: {
             type: DataTypes.STRING(60),
             allowNull : false
-          //  unique: true          --incorporate later when not using test@test.com
+          //  unique: true  --incorporate later when not using test@test.com
         }
     });
 
