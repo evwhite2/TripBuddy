@@ -1,18 +1,6 @@
 const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
-
-const sequelize = new Sequelize('tripBuddy_db', 'root', '', {
-    host: "localhost",
-    port: 3306,
-    dialect: 'mysql',
-    pool: {
-        max: 5,
-        min:0,
-        acquire: 30000,
-        idle: 10000 //in milliseconds
-    },
-    operatorAliases: false
-});
+const sequelize = require("../config/database");
 
 var User = sequelize.define("User", {
     firstName: Sequelize.STRING(30),
@@ -50,9 +38,5 @@ User.beforeCreate((user, options)=> {
 User.prototype.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password)
 };
-
-sequelize.sync()
-    .then(()=>console.log('user table created'))
-    .catch(error=>console.log(error));
 
 module.exports = User;

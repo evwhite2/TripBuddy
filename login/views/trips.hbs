@@ -6,25 +6,30 @@
     </div>
 </div>
 
-
 <div class="row">
-    <form id="genRouteForm" class="col s12">
+    <form action= "/trips" method= "POST" class="col s12">
       <div class="row center">
 
             <div class="input-field col s4">
-            <input id="startPt" type="text" class="validate">
+            <input id="tripName" name = "tripName" type="text" class="validate">
+            <label for="tripName">Trip Name</label>
+            <span class="helper-text" data-error="wrong" data-success="right">Give your trip a name</span>
+            </div>
+
+            <div class="input-field col s4">
+            <input id="startPt" name = "startPt" type="text" class="validate">
             <label for="startPt">City A</label>
             <span class="helper-text" data-error="wrong" data-success="right">Your starting point</span>
             </div>
 
             <div class="input-field col s4">
-            <input id="midPt" type="text" class="validate">
+            <input id="midPt" name = "midPt" type="text" class="validate">
             <label for="midPt">City B</label>
             <span class="helper-text" data-error="wrong" data-success="right">Somewhere inbetween</span>
             </div>
             
             <div class="input-field col s4">
-            <input id="endPt" type="text" class="validate">
+            <input id="endPt" name = "endPt" type="text" class="validate">
             <label for="endPt">City C</label>
             <span class="helper-text" data-error="wrong" data-success="right">Your destination</span>
             </div>
