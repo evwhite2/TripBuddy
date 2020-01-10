@@ -1,11 +1,17 @@
+//Packages to install:
+//npm i cookie-parser express-session morgan express-handlebars body-parser express path sequelize mysql mysql2 bcrypt
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const morgan = require("morgan");
-const User = require("./models/user.js");
 const hbs = require("express-handlebars");
 const bodyParser = require("body-parser");
 const express = require("express");
 const path = require("path");
+
+//local files
+const sequelize = require("./config/database");
+const User = require("./models/user.js");
+const Trip = require("./models/trip.js");
 
 // invoke an instance of express application.
 var app = express();
@@ -110,6 +116,8 @@ app.route('/login')
                 res.redirect('/dashboard');
             }
             console.log(username)
+            console.log(JSON.stringify(req.session.user))
+            console.log(JSON.stringify(req.session.user.id))
         });
     });
 
@@ -118,9 +126,8 @@ app.route('/login')
 app.get('/dashboard', (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
 		userContent.loggedin = true; 
-		userContent.userName = req.session.user.username; 
-		//console.log(JSON.stringify(req.session.user)); 
-		console.log(req.session.user.username); 
+		userContent.userName = req.session.user.userName; 
+		console.log(req.session.user.userName); 
 		userContent.title = "You are logged in"; 
         //res.sendFile(__dirname + '/public/dashboard.html');
         res.render('index', userContent);
@@ -129,20 +136,52 @@ app.get('/dashboard', (req, res) => {
     }
 });
 
-// route for user's dashboard
-app.get('/trips', (req, res) => {
-    if (req.session.user && req.cookies.user_sid) {
-		userContent.loggedin = true; 
-		userContent.userName = req.session.user.username; 
-		//console.log(JSON.stringify(req.session.user)); 
-		console.log(req.session.user.username); 
-		userContent.title = "Your trips"; 
-        //res.sendFile(__dirname + '/public/dashboard.html');
+// route for user signup
+app.route('/signup')
+    .get((req, res) => {
+        res.render('signup', userContent);
+    })
+    .post((req, res) => {
+        User.create({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            userName: req.body.userName,
+            email: req.body.email,
+            password: req.body.password
+        })
+        .then(user => {
+            req.session.user = user.dataValues;
+            res.redirect('/dashboard');
+        })
+        .catch(error => {
+            res.redirect('/signup');
+        });
+    });
+
+// route for user's trips
+app.route('/trips')
+    .get((req, res) => {
         res.render('trips', userContent);
-    } else {
-        res.redirect('/dashboard');
-    }
-});
+    })
+    .post((req, res)=> {
+        Trip.create({
+            tripName: req.body.tripName,
+            startPt: req.body.startPt,
+            midPt: req.body.midPt,
+            endPt: req.body.endPt
+        })
+        .then(trips => {
+            console.log('trips processed')
+            console.log(trips.tripName) //logs trip name just inserted into DB
+            res.render('trips')
+        })
+        .catch(error => {
+            res.send(error);
+            res.redirect('/dashboard');
+        });
+        console.log(JSON.stringify(req.session.user)) //logs user info (is, first, last, etc...)
+        console.log(JSON.stringify(req.session.user.id)) //logs user ID  :)
+    })
 
 // route for user logout
 app.get('/logout', (req, res) => {
@@ -164,5 +203,10 @@ app.use(function (req, res, next) {
 });
 
 
-// start the express server
-app.listen(app.get('port'), () => console.log(`App started on port ${app.get('port')}`));
+sequelize.sync({ force: false }).then(function() {
+
+    app.listen(app.get('port'), function() {
+      console.log("App listening on PORT " + app.get('port'))
+      console.log('werk')
+    });
+  });

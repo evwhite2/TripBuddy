@@ -1,9 +1,19 @@
 const Sequelize = require("sequelize");
+const sequelize = require("../config/database");
 
 var Trip = sequelize.define("Trip", {
     tripName: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
+        // allowNull: false
+    },
+    startPt: {
+        type: Sequelize.STRING
+    },
+    midPt: {
+        type: Sequelize.STRING
+    },
+    endPt: {
+        type: Sequelize.STRING
     }
 });
 
