@@ -6,8 +6,6 @@ var router = express.Router();
 
 const sessionChecker = require("../server");
 
-var query = {};
-
 //generate user specific info
 const userContent = { userName: '', loggedin: false, body: 'yo'}
 

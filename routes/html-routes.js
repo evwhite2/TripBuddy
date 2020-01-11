@@ -29,7 +29,7 @@ var stopsAPI = require("./stops-api");
 
   router.use(tripsAPI);
   
-  router.get("/stops", function(req, res) {
+  router.get("/interests", function(req, res) {
     res.render('interests')
   });
   

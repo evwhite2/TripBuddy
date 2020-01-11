@@ -10,17 +10,35 @@ header{
     color: rgb(34, 58, 73);
 }
 
+button, footer, h4, h5{
+    font-family: 'Sigmar One', cursive;
+}
+
 main {
     flex: 1 0 auto;  
+    font-family: 'Open Sans', sans-serif;   
+}
+
+span{
+    font-family: 'Sigmar One', cursive;
 }
 
 .page-footer{
     background-color: rgb(94, 165, 115);
 }
 
+.userList{
+    font-size: 16px;
+}
+
+.reduceBot{
+    margin-bottom: 3px;
+}
+
 #bigNav {
     background-color: rgb(94, 165, 115);
-    color: rgb(34, 58, 73)
+    color: rgb(34, 58, 73);
+    font-family: 'Sigmar One', cursive;
 }
 
 #editBtn{
@@ -31,6 +49,7 @@ main {
 #genRoute{
     background-color: rgb(34, 58, 73);
     color:whitesmoke; 
+    font-family: 'Sigmar One', cursive;
     padding-left: 50px;
     padding-right:50px;
 }
@@ -39,7 +58,50 @@ main {
     height: 500px; 
 }
 
+#usersTitle{
+    display: flex;
+    justify-content: space-between;
+}
+
+#saveTrip{
+    background-color: rgb(34, 58, 73);
+    color:whitesmoke;
+    /* display: none; */
+    font-family: 'Sigmar One', cursive;
+}
+
 #saveUser{
     background-color: rgb(34, 58, 73);
     color:whitesmoke;
+    font-family: 'Sigmar One', cursive;
 }
+
+
+/* The Modal (background) */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+  .modal-content {
+    background-color: whitesmoke;
+    font-family: "Open Sans", sans-serif;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid rgb(34, 58, 73);
+    width: 40%; 
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
