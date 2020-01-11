@@ -1,9 +1,10 @@
 <html>
     <head>
-            <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <meta http-equiv="Content-Security-Policy" 
+    content="font-src 'self' data:; img-src 'self' data:; default-src 'self' http://121.0.0:3000/">
 {{!-- materialize --}}
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 {{!-- leaflet (map) styles --}}
@@ -16,7 +17,7 @@
         {{# if loggedin}}
 			Welcome {{userName}}
 		{{else }}
-			NodeJS
+			Trip Buddy
 		{{/if}}
 		</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
@@ -57,7 +58,7 @@
     <div classs= "col s12">
         <h4>Where you headed?</h4>
             {{# if loggedin}}
-            Testing<!--show ability to search citie & maybe saved trips-->
+            {{userName}}<!--show ability to search citie & maybe saved trips-->
             {{else }}
             <p>Login or Create an Account to plan your trip!</p>
             {{/if}}

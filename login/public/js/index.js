@@ -17,28 +17,6 @@ $(".newUserForm").on("submit", event=>{
       }).then(function() {
           console.log("new user posted");
           // Reload the page to get the updated list
-           //location.reload();
-        });
-    });
-
-$(".newUserForm").on("submit", event=>{
-    event.preventDefault();
-
-    var newUser ={
-        firstName : $("#firstName").val().trim(),
-        lastName : $("#lastName").val().trim(),
-        userName : $("#userName").val().trim(),
-        password: $("#password").val().trim(),
-        email : $("#email").val().trim()
-    };
-
-    // Send the POST request.
-    $.ajax("/api/signup", {
-        type: "POST",
-        data: newUser
-      }).then(function() {
-          console.log("new user posted");
-          // Reload the page to get the updated list
           location.reload();
         });
     });
