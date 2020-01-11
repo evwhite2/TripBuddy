@@ -1,13 +1,13 @@
 var db = require("../models");
 var express = require("express");
-const session = require("express-session");
-const bcrypt = require("bcrypt");
 var router = express.Router();
+
 
 const sessionChecker = require("../server");
 
 //generate user specific info
 const userContent = { userName: '', loggedin: false, body: 'yo'}
+
 
 router.get("/api/users", function(req, res) {
     db.User.findAll({}).then(function(allusers) {
