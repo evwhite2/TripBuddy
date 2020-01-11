@@ -1,3 +1,5 @@
+// keeping file for fute dev
+
 module.exports = function (sequelize, DataTypes) {
     var Stop = sequelize.define("Stop", {
         stopName: {
