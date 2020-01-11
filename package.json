@@ -1,6 +1,9 @@
 {
   "name": "project2",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.14.1"
+  },
   "description": "plan your next road trip, select interesting stop off's based on your planned route",
   "main": "server.js",
   "scripts": {
