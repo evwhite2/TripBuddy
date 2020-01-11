@@ -13,6 +13,7 @@ const sequelize = require("./config/database");
 // const User = require("./models/user.js");
 // const Trip = require("./models/trip.js");
 const db = require("./models");
+const routes = require("./routes/users-api");
 
 // invoke an instance of express application.
 var app = express();
@@ -79,7 +80,7 @@ app.get('/', sessionChecker, (req, res) => {
     res.redirect('/login');
 });
 
-
+app.use(routes);
 //api route to get all users with their trips
 app.get("/api/users", function(req, res) {
     db.User.findAll({include: [db.Trip]}).then(function(allusers) {
@@ -111,7 +112,8 @@ app.route('/signup')
             res.redirect('/dashboard');
         })
         .catch(error => {
-            res.redirect('/signup');
+            console.log(error)
+        //    res.redirect('/signup');  as of 1/11 at 2:30pm - redirects to signup bc 'Map container not found' error
         });
     });
 

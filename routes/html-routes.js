@@ -8,11 +8,10 @@ var usersAPI = require("./users-api");
 var tripsAPI = require("./trips-api");
 var stopsAPI = require("./stops-api");
 
-/*
+
   router.get("/", (req, res)=>{
       res.render('index');
   });
-*/
 
   router.get("/users", function(req, res) {
     db.User.findAll({}).then(function(data){
