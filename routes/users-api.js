@@ -2,7 +2,12 @@ var db = require("../models");
 var express = require("express");
 var router = express.Router();
 
-var query = {};
+
+const sessionChecker = require("../server");
+
+//generate user specific info
+const userContent = { userName: '', loggedin: false, body: 'yo'}
+
 
 router.get("/api/users", function(req, res) {
     db.User.findAll({}).then(function(allusers) {

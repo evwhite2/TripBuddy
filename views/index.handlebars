@@ -1,4 +1,4 @@
-
+<div class="col s 12">
 <div class="row">
     <div classs= "col s12">
         <h4>Where you headed?</h4>
@@ -7,24 +7,24 @@
 </div>
 
 
-<div class="row">
+<div class="row reduceBot">
     <form id="genRouteForm" class="col s12">
       <div class="row center">
 
             <div class="input-field col s4">
-            <input id="startPt" type="text" class="validate" value="Chicago">
+            <input id="startPt" type="text" class="validate" value="chicago">
             <label for="startPt">Your starting point</label>
             <span class="helper-text" data-error="wrong" data-success="right">City A</span>
             </div>
 
             <div class="input-field col s4">
-            <input id="midPt" type="text" class="validate" value="Nashville">
+            <input id="midPt" type="text" class="validate" value="houston">
             <label for="midPt">Somewhere inbetween</label>
             <span class="helper-text" data-error="wrong" data-success="right">City B</span>
             </div>
             
             <div class="input-field col s4">
-            <input id="endPt" type="text" class="validate" value="Destin">
+            <input id="endPt" type="text" class="validate" value="">
             <label for="endPt">Your destination</label>
             <span class="helper-text" data-error="wrong" data-success="right">City C</span>
             </div>
@@ -34,8 +34,33 @@
             </div>
         </div>
     </form>
-  </div>
+</div>
 
+<div class="row">
+<div class="col s12 center">
+        <button id="saveTrip" class="waves-effect waves-teal btn-flat" type="submit">Save Trip</button>
+    </div>
+</div>
     
 
 <div id="mapid" class="map"></div>
+</div>
+
+<div id="tripModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+      <h5>Enter Trip Name</h5>
+
+    <form id="tripNameForm" class="center">
+        <input id="tripName" type="text">
+        <select>
+            <option>user1</option>
+            <option>user2</option>
+        </select>
+        <button id="saveTripName" class="waves-effect waves-teal btn-flat" type="submit">Save</button> <button class="close waves-effect waves-teal btn-flat" type="submit">Close</button>
+    </form>
+    
+  </div>
+
+</div>
