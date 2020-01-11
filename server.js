@@ -11,17 +11,17 @@ const bodyParser = require("body-parser");
 
 var PORT = process.env.PORT || 8080;
 
-const sequelize = new Sequelize('tripBuddy_db', 'root', 'YOURPASS', {
-  host: 'localhost',
-  port: PORT,
-  dialect: 'mysql',
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  }
-});
+// const sequelize = new Sequelize('tripBuddy_db', 'root', 'YOURPASS', {
+//   host: 'localhost',
+//   port: PORT,
+//   dialect: 'mysql',
+//   pool: {
+//     max: 5,
+//     min: 0,
+//     acquire: 30000,
+//     idle: 10000
+//   }
+// });
 
 // Requiring our models for syncing
 var db = require("./models");
