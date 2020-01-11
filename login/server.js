@@ -10,8 +10,9 @@ const path = require("path");
 
 //local files
 const sequelize = require("./config/database");
-const User = require("./models/user.js");
-const Trip = require("./models/trip.js");
+// const User = require("./models/user.js");
+// const Trip = require("./models/trip.js");
+const db = require("./models")
 
 // invoke an instance of express application.
 var app = express();
@@ -76,10 +77,13 @@ app.route('/signup')
     //.get(sessionChecker, (req, res) => {
     .get((req, res) => {
         //res.sendFile(__dirname + '/public/signup.html');
-        res.render('signup', userContent);
+        db.User.findAll({}).then(function(data){
+            var userData= { user : data };
+            res.render('signup', userContent);
+          })
     })
     .post((req, res) => {
-        User.create({
+        db.User.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             userName: req.body.userName,
@@ -106,14 +110,15 @@ app.route('/login')
         var username = req.body.username,
             password = req.body.password;
 
-        User.findOne({ where: { username: username } }).then(function (user) {
+        db.User.findOne({ where: { username: username } }).then(function (user) {
+
             if (!user) {
                 res.redirect('/login');
             } else if (!user.validPassword(password)) {
                 res.redirect('/login');
             } else {
                 req.session.user = user.dataValues;
-                res.redirect('/dashboard');
+                res.redirect(`/dashboard`);
             }
             console.log(username)
             console.log(JSON.stringify(req.session.user))
@@ -129,7 +134,14 @@ app.get('/dashboard', (req, res) => {
 		userContent.userName = req.session.user.userName; 
 		console.log(req.session.user.userName); 
 		userContent.title = "You are logged in"; 
-        //res.sendFile(__dirname + '/public/dashboard.html');
+
+        db.User.findOne({ where: { id: req.session.user.id, include: [db.Trip] } }).then(function(data){
+            console.log('user dashboard processed');
+            console.log(data);
+            var userData= { user : data };
+            res.render('dashboard', userData);
+          })
+
         res.render('index', userContent);
     } else {
         res.redirect('/login');
@@ -142,7 +154,7 @@ app.route('/signup')
         res.render('signup', userContent);
     })
     .post((req, res) => {
-        User.create({
+        db.User.create({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             userName: req.body.userName,
@@ -163,12 +175,15 @@ app.route('/trips')
     .get((req, res) => {
         res.render('trips', userContent);
     })
-    .post((req, res)=> {
-        Trip.create({
+
+app.route('/trips').post((req, res)=> {
+        console.log({session: req.session})
+        db.Trip.create({
             tripName: req.body.tripName,
             startPt: req.body.startPt,
             midPt: req.body.midPt,
-            endPt: req.body.endPt
+            endPt: req.body.endPt,
+            UserId: req.session.user.id
         })
         .then(trips => {
             console.log('trips processed')
@@ -203,7 +218,7 @@ app.use(function (req, res, next) {
 });
 
 
-sequelize.sync({ force: false }).then(function() {
+db.sequelize.sync({force: false}).then(function() {
 
     app.listen(app.get('port'), function() {
       console.log("App listening on PORT " + app.get('port'))

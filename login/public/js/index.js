@@ -11,7 +11,7 @@ $(".newUserForm").on("submit", event=>{
     };
 
     // Send the POST request.
-    $.ajax("/api/users", {
+    $.ajax("/api/signup", {
         type: "POST",
         data: newUser
       }).then(function() {
@@ -33,7 +33,7 @@ $(".newUserForm").on("submit", event=>{
     };
 
     // Send the POST request.
-    $.ajax("/api/users", {
+    $.ajax("/api/signup", {
         type: "POST",
         data: newUser
       }).then(function() {

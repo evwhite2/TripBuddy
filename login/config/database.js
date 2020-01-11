@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 
-module.exports = new Sequelize('tripBuddy_db', 'root', '', {
+const sequelize = new Sequelize('tripBuddy_db', 'root', '', {
     host: "localhost",
     port: 3306,
     dialect: 'mysql',
@@ -12,3 +12,5 @@ module.exports = new Sequelize('tripBuddy_db', 'root', '', {
     },
     operatorAliases: false
 });
+
+module.exports = sequelize;

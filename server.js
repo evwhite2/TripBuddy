@@ -90,6 +90,3 @@ db.sequelize.sync({ force: false }).then(function() {
     console.log("App listening on PORT " + PORT);
   });
 });
-
-//attempting to start sessions after login or register
-module.exports = sessionChecker;
