@@ -2,9 +2,6 @@ var db = require("../models");
 var express = require("express");
 var router = express.Router();
 
-
-const sessionChecker = require("../server");
-
 //generate user specific info
 const userContent = { userName: '', loggedin: false, body: 'yo'}
 
