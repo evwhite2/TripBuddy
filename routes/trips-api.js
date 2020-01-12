@@ -3,7 +3,7 @@ var express = require("express");
 var router = express.Router();
 var app = express();
 
-var user = "";
+// var user = "";
 
   router.get("/api/trips", function(req, res) {
     db.Trip.findAll({}).then(function(alltrips) {
