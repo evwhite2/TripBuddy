@@ -9,7 +9,9 @@ var router = express.Router();
   });
 
   router.post("/api/trips", (req, res)=>{
+    // db.Trip.create({
 
+    // })
   });
   
   router.delete("/api/trips", (req, res)=>{

@@ -21,6 +21,10 @@ var stopsAPI = require("./stops-api");
     })
   });
   
+  router.get("/signup", function(req, res) {
+      res.render('signup', userData)
+  });
+
   router.use(usersAPI);
 
   router.get("/trips", function(req, res) {      
