@@ -1,7 +1,9 @@
 var db = require("../models");
 var express = require("express");
 var router = express.Router();
-const session = require("express-session");
+var app = express();
+
+var user = "";
 
   router.get("/api/trips", function(req, res) {
     db.Trip.findAll({}).then(function(alltrips) {
@@ -15,7 +17,7 @@ const session = require("express-session");
       startPt: req.body.startPt,
       midPt: req.body.midPt,
       endPt: req.body.endPt,
-      UserId: "0"
+      UserId: "1"
     }).then(newTrip=>{
       res.json(newTrip);
       res.end();
@@ -26,9 +28,9 @@ const session = require("express-session");
   
 
   
-  // router.delete("/api/trips", (req, res)=>{
+  router.delete("/api/trips", (req, res)=>{
 
-  // });
+  });
 
 
   module.exports = router;

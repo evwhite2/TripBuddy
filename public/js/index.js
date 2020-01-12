@@ -5,11 +5,13 @@ $("#saveTrip").on("click", function(event1){
     $(".modal").attr("style", "display: block;")
 })
 
-$("#saveTripName").on("click", function(){
+$("#saveTripName").on("click", function(event2){
+    event2.preventDefault();
 
-    console.log(startPt.value, startPt.value, endPt.value)
+    console.log(startPt.value, midPt.value, endPt.value)
 
     var tripName = $("#tripName").val().trim();
+
     var newTrip = {
         tripName: tripName,
         startPt: startPt.value,
@@ -23,7 +25,7 @@ $("#saveTripName").on("click", function(){
         type: "POST",
         data: newTrip
     }).then(()=>{
-        console.log(`${newTrip.tripName} added`);
+        console.log("added");
     })
 
     $(".modal").attr("style", "display: none;")
