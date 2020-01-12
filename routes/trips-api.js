@@ -9,12 +9,23 @@ var router = express.Router();
   });
 
   router.post("/api/trips", (req, res)=>{
-
+    db.Trip.create({
+      tripName: req.body.tripName,
+      startPt: req.body.startPt,
+      midPt: req.body.midPt,
+      endPt: req.body.endPt,
+      UserId: req.session.user.id
+    }).then(newTrip=>{
+      res.json(newTrip);
+      res.end();
+    }).catch(function(err){
+        console.log("error:", err)
+    })
   });
   
-  router.delete("/api/trips", (req, res)=>{
+  // router.delete("/api/trips", (req, res)=>{
 
-  });
+  // });
 
 
   module.exports = router;

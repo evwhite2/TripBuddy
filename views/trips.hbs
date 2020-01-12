@@ -7,29 +7,23 @@
 </div>
 
 <div class="row reduceBot">
-    <form id="genRouteForm" action= "/trips" method= "POST" class="col s12">
+    <form id="genRouteForm" class="col s12">
       <div class="row center">
 
             <div class="input-field col s4">
-            <input id="tripName" name = "tripName" type="text" class="validate" value="trip">
-            <label for="tripName">Trip Name</label>
-            <span class="helper-text" data-error="wrong" data-success="right">Give your trip a name</span>
-            </div>
-
-            <div class="input-field col s4">
-            <input id="startPt" name = "startPt" type="text" class="validate" value="first">
+            <input id="startPt" name = "startPt" type="text"  value="chicago">
             <label for="startPt">City A</label>
             <span class="helper-text" data-error="wrong" data-success="right">Your starting point</span>
             </div>
 
             <div class="input-field col s4">
-            <input id="midPt" name = "midPt" type="text" class="validate" value="second">
+            <input id="midPt" name = "midPt" type="text"  value="miami">
             <label for="midPt">City B</label>
             <span class="helper-text" data-error="wrong" data-success="right">Somewhere inbetween</span>
             </div>
             
             <div class="input-field col s4">
-            <input id="endPt" name = "endPt" type="text" class="validate" value="third">
+            <input id="endPt" name = "endPt" type="text" value="new york city">
             <label for="endPt">City C</label>
             <span class="helper-text" data-error="wrong" data-success="right">Your destination</span>
             </div>
@@ -65,11 +59,8 @@
 
     <form id="tripNameForm" class="center">
         <input id="tripName" type="text">
-        <select>
-            <option>user1</option>
-            <option>user2</option>
-        </select>
-        <button id="saveTripName" class="waves-effect waves-teal btn-flat" type="submit">Save</button> <button class="close waves-effect waves-teal btn-flat" type="submit">Close</button>
+        <button id="saveTripName" class="waves-effect waves-teal btn-flat" type="submit">Save</button> 
+        <button class="close waves-effect waves-teal btn-flat" type="submit">Close</button>
     </form>
     
   </div>
