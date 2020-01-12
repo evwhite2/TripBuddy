@@ -1,92 +1,245 @@
-var express = require("express");
-var exphbs = require("express-handlebars");
-var app = express();
-const session = require("express-session");
+//Packages to install:
+//npm i cookie-parser express-session morgan express-handlebars body-parser express path sequelize mysql mysql2 bcrypt
 const cookieParser = require("cookie-parser");
-const path = require("path");
-const bcrypt = require("bcrypt");
-const Sequelize = require("sequelize");
+const session = require("express-session");
+const morgan = require("morgan");
+const hbs = require("express-handlebars");
 const bodyParser = require("body-parser");
+const express = require("express");
+const path = require("path");
 
+//local files
+const sequelize = require("./config/database");
+// const User = require("./models/user.js");
+// const Trip = require("./models/trip.js");
+const db = require("./models");
+const routes = require("./routes/users-api");
 
-var PORT = process.env.PORT || 8080;
+// invoke an instance of express application.
+var app = express();
 
-// const sequelize = new Sequelize('tripBuddy_db', 'root', 'YOURPASS', {
-//   host: 'localhost',
-//   port: PORT,
-//   dialect: 'mysql',
-//   pool: {
-//     max: 5,
-//     min: 0,
-//     acquire: 30000,
-//     idle: 10000
-//   }
-// });
+// set our application port
+app.set('port', 8080);
 
-// Requiring our models for syncing
-var db = require("./models");
+// set morgan to log info about our requests for development use.
+app.use(morgan('dev'));
 
-// Sets up the Express app to handle data parsing
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// initialize body-parser to parse incoming parameters requests to req.body
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// initialize cookie-parser to allow us access the cookies stored in the browser. 
+app.use(cookieParser());
+
+// initialize express-session to allow us track the logged-in user across sessions.
+app.use(session({
+    key: 'user_sid',
+    secret: 'tripBuddy_db',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 600000
+    }
+}));
 
 // Static directory
 app.use(express.static("public"));
 
-//handleabars
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
-
-// Routes
-var routes = require("./routes/html-routes");
-app.use(routes);
-
-//store cookies in browser
-app.use(cookieParser());
-
-//cookie depends on browser -- if server restarts/stops, browser stores user info if user is logged in
+// handle bars config
+app.engine('hbs', hbs({extname: 'hbs',defaultLayout: 'main', layoutsDir: __dirname + '/views/layouts'})); 
+app.set('views', path.join(__dirname, 'views')); 
+app.set('view engine', 'hbs'); 
+// This middleware will check if user's cookie is still saved in browser 
+//and user is not set, then automatically log the user out.
+// cookie remains saved in the browser.
 app.use((req, res, next) => {
-  if(req.cookies.user && !req.session.user) {
-    res.clearCookie('user_sid');
-  }
-  next();
+    if (req.cookies.user_sid && !req.session.user) {
+        res.clearCookie('user_sid');        
+    }
+    next();
 });
 
-//set up session so can stay logged in
-app.use(session(
-  {
-    key: 'user_sid',
-    secret: "tripBuddy_db",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 60* 1000 * 30
-    }
-  }
-));
 
-//session checker
-const sessionChecker = (req, res, next) => {
-  if(req.session.user && req.cookies.user_sid) {
-    res.redirect('/home')     //set up home route to welcome user
-  } else {
-    next();
-  }
+//dynamic user content
+var userContent = {userName: '', loggedin: false, title: "You are not logged in today", body: "Hello World", }; 
+
+
+
+// middleware function to check for logged-in users
+var sessionChecker = (req, res, next) => {
+    if (req.session.user && req.cookies.user_sid) {
+		
+        res.redirect('/dashboard');
+    } else {
+        next();
+    }    
 };
 
-app.get('/', sessionChecker, (req, res)=> {
-  res.render('index');
-})
 
-//error handling
-app.use((err, req, res, next)=> {
-  res.status(err.status || 500);
-  res.send(err.message);
+// route for Home-Page
+app.get('/', sessionChecker, (req, res) => {
+    res.redirect('/login');
 });
 
-db.sequelize.sync({ force: true }).then(function() {
+app.use(routes);
+//api route to get all users with their trips
+app.get("/api/users", function(req, res) {
+    db.User.findAll({include: [db.Trip]}).then(function(allusers) {
+      res.json(allusers);
+      })
+});
 
-  app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
+
+// route for user signup
+app.route('/signup')
+    //.get(sessionChecker, (req, res) => {
+    .get((req, res) => {
+        //res.sendFile(__dirname + '/public/signup.html');
+        db.User.findAll({}).then(function(data){
+            var userData= { user : data };
+            res.render('signup', userContent);
+          })
+    })
+    .post((req, res) => {
+        db.User.create({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            userName: req.body.userName,
+            email: req.body.email,
+            password: req.body.password
+        })
+        .then(user => {
+            req.session.user = user.dataValues;
+            res.redirect('/dashboard');
+        })
+        .catch(error => {
+            console.log(error)
+        //    res.redirect('/signup');  as of 1/11 at 2:30pm - redirects to signup bc 'Map container not found' error
+        });
+    });
+
+
+// route for user Login
+app.route('/login')
+    .get(sessionChecker, (req, res) => {
+        res.render('login', userContent);
+    })
+    .post((req, res) => {
+        var username = req.body.username,
+            password = req.body.password;
+
+        db.User.findOne({ where: { username: username } }).then(function (user) {
+
+            if (!user) {
+                res.redirect('/login');
+            } else if (!user.validPassword(password)) {
+                res.redirect('/login');
+            } else {
+                req.session.user = user.dataValues;
+                res.redirect(`/dashboard`);
+            }
+            console.log(JSON.stringify(req.session.user))
+            console.log(JSON.stringify(req.session.user.id))
+        });
+    });
+
+// route for finding user by username
+
+// route for user's dashboard
+app.get('/dashboard', (req, res) => {
+    if (req.session.user && req.cookies.user_sid) {
+		userContent.loggedin = true; 
+		userContent.userName = req.session.user.userName; 
+		console.log(req.session.user.userName); 
+		userContent.title = "You are logged in"; 
+
+        db.User.findOne({ where: { id: req.session.user.id, include: [db.Trip] } }).then(function(data){
+            console.log('user dashboard processed');
+            console.log(data);
+            var userData= { user : data };
+            res.render('dashboard', userData);
+          })
+        res.render('dashboard', userContent); //was index
+    } else {
+        res.redirect('/login');
+    }
+});
+
+// route for user signup
+app.route('/signup')
+    .get((req, res) => {
+        res.render('signup', userContent);
+    })
+    .post((req, res) => {
+        db.User.create({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            userName: req.body.userName,
+            email: req.body.email,
+            password: req.body.password
+        })
+        .then(user => {
+            userContent.loggedin = true; 
+            req.session.user = user.dataValues;
+            res.redirect('/dashboard');
+        })
+        .catch(error => {
+            res.redirect('/signup');
+        });
+    });
+
+// route for user's trips
+app.route('/trips')
+    .get((req, res) => {
+        res.render('trips', userContent);
+    })
+
+app.route('/trips')
+    .post((req, res)=> {
+        console.log({session: req.session})
+        db.Trip.create({
+            tripName: req.body.tripName,
+            startPt: req.body.startPt,
+            midPt: req.body.midPt,
+            endPt: req.body.endPt,
+            UserId: req.session.user.id
+        })
+        .then(trips => {
+            var tripName = trips.dataValues.tripName
+            console.log('trips processed')
+            console.log(tripName)
+            res.render('trips')
+        })
+        .catch(error => {
+            res.send(error);
+            //res.redirect('/trips');
+        });
+        console.log(JSON.stringify(req.session.user)) //logs user info (id, first, last, etc...)
+        console.log(JSON.stringify(req.session.user.id)) //logs user ID  :)
+    })
+
+// route for user logout
+app.get('/logout', (req, res) => {
+    if (req.session.user && req.cookies.user_sid) {
+		userContent.loggedin = false; 
+		userContent.title = "You are logged out!"; 
+        res.clearCookie('user_sid');
+		console.log(JSON.stringify(userContent)); 
+        res.redirect('/');
+    } else {
+        res.redirect('/login');
+    }
+});
+
+// route for handling 404 requests(unavailable routes)
+app.use(function (req, res, next) {
+  res.status(404).send("Sorry can't find that!")
+});
+
+
+db.sequelize.sync({force: false}).then(function() {
+
+    app.listen(app.get('port'), function() {
+      console.log("App listening on PORT " + app.get('port'))
+      console.log('werk')
+    });
   });
-});
