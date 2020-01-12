@@ -31,7 +31,6 @@ $("#saveTripName").on("click", function(event2){
     $(".modal").attr("style", "display: none;")
 })
 
-
 //map:
 var mymap = L.map('mapid').setView([45, -100], 4);
 
@@ -54,7 +53,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 $("#genRouteForm").on("click", function(){
     $("label").empty();    
 });
-
 
 $("#genRouteForm").on("submit", function(event){
     event.preventDefault();
@@ -123,4 +121,5 @@ $("#genRouteForm").on("submit", function(event){
         })
     })
 })
+
 
