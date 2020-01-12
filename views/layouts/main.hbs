@@ -3,37 +3,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="Content-Security-Policy" 
-    content="font-src 'self' data:; img-src 'self' data:; default-src 'self' http://121.0.0:3000/">
+   
 {{!-- materialize --}}
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+{{!-- google fonts --}}
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Sigmar+One&display=swap" rel="stylesheet">>
 {{!-- leaflet (map) styles --}}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
    crossorigin=""/>
 {{!-- local css file --}}
-
-		<title>
+    <link rel="stylesheet" type= "text/css" href="/css/styles.css">  
+		
+        <title>
         {{# if loggedin}}
 			Welcome {{userName}}
 		{{else }}
 			Trip Buddy
 		{{/if}}
-		</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-     <link rel="stylesheet" type= "text/css" href="/public/css/styles.css">       
+		</title>     
     </head>
-    <body class="container">
-        <div class="page-header">
-            <h1>Trip Buddy</h1>
-        </div>
-
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
+    <body>
+        <header>   
+            <nav  id="bigNav" class="nav-extended">
+                <div class="nav-wrapper">
+                    <a href="/" class="brand-logo center">Trip Buddy</a>
+                </div>
+                <div class="nav-content">
+                    <ul class="tabs tabs-transparent">
                         <li><a href="/">Home</a></li>
                         <li><a href="/signup">Sign Up</a></li>
                         <li><a href="/dashboard">Dashboard</a></li>
@@ -42,7 +39,7 @@
                         {{/if}}
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav content-right">
 					{{# if loggedin}}
 						<li><a href="/logout">Log Out</a></li>
 					{{else }}
@@ -50,22 +47,23 @@
 					{{/if}}
                         
                     </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-
-<div class="row">
-    <div classs= "col s12">
-        <h4>Where you headed?</h4>
+                </div>
+            </nav>
+        </header> 
+<main>
+    <div class = "container">
+       
+    <div class="row">
+        <div classs= "col s12">
             {{# if loggedin}}
-            {{userName}}<!--show ability to search citie & maybe saved trips-->
-            {{else }}
-            <p>Login or Create an Account to plan your trip!</p>
-            {{/if}}
+            <h4>Where you headed {{userName}}? </h4>
+                {{else }}
+                <p>Login or Create an Account to plan your trip!</p>
+                {{/if}}
+        </div>
+        {{{body}}}
     </div>
-</div>
 
-       {{{body}}}
 
 <footer class="page-footer">    
     <div class="footer-copyright">
@@ -83,6 +81,8 @@
    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
    crossorigin=""></script>
 {{!-- local js file --}}
-</body>
+    <script src = "/js/index.js"></script>
+</div>
+</main>
     </body>
 </html>
