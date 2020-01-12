@@ -10,10 +10,10 @@ const path = require("path");
 
 //local files
 const sequelize = require("./config/database");
-// const User = require("./models/user.js");
-// const Trip = require("./models/trip.js");
 const db = require("./models");
-const routes = require("./routes/users-api");
+const userRoutes = require("./routes/users-api");
+const tripRoutes = require("./routes/trips-api");
+
 
 // invoke an instance of express application.
 var app = express();
@@ -62,8 +62,6 @@ app.use((req, res, next) => {
 //dynamic user content
 var userContent = {userName: '', firstName: '', loggedin: false, title: "You are not logged in today", body: "Hello World", }; 
 
-
-
 // middleware function to check for logged-in users
 var sessionChecker = (req, res, next) => {
     if (req.session.user && req.cookies.user_sid) {
@@ -80,16 +78,8 @@ app.get('/', sessionChecker, (req, res) => {
     res.redirect('/login');
 });
 
-app.use(routes);
-
-// api route to get all users with their trips
-app.get("/api/users", function(req, res) {
-    db.User.findAll({include: [db.Trip]}).then(function(allusers) {
-      res.json(allusers);
-      })
-});
-
-var tripRoutes = require("./routes/trips-api");
+// api Routes
+app.use(userRoutes);
 app.use(tripRoutes)
 
 
@@ -174,38 +164,6 @@ app.route('/trips')
     .get((req, res) => {
         res.render('trips');
     })
-
-// app.get("/api/trips", function(req, res) {
-//     db.Trip.findAll({include: [db.Stop]}).then(function(allTrips) {
-//       res.json(allTrips);
-//       })
-// });
-
-
-// app.route('/api/trips')
-//     .post((req, res)=> {
-//         console.log({session: req.session})
-//         db.Trip.create({
-//             tripName: req.body.tripName,
-//             startPt: req.body.startPt,
-//             midPt: req.body.midPt,
-//             endPt: req.body.endPt,
-//             UserId: req.session.user.id
-//         })
-//         .then((trips) => {
-//             var tripName = trips.dataValues.tripName
-//             console.log('trips processed')
-//             console.log(tripName)
-//             res.render('trips')
-//         })
-//         .catch(error => {
-//             res.send(error);
-//             //res.redirect('/trips');
-//         });
-//         console.log(JSON.stringify(req.session.user)) //logs user info (id, first, last, etc...)
-//         console.log(JSON.stringify(req.session.user.id)) //logs user ID  :)
-//     })
-
 
 // route for user logout
 app.get('/logout', (req, res) => {

@@ -1,6 +1,9 @@
 var db = require("../models");
 var express = require("express");
 var router = express.Router();
+var app = express();
+
+// var user = "";
 
   router.get("/api/trips", function(req, res) {
     db.Trip.findAll({}).then(function(alltrips) {
@@ -14,7 +17,7 @@ var router = express.Router();
       startPt: req.body.startPt,
       midPt: req.body.midPt,
       endPt: req.body.endPt,
-      UserId: req.session.user.id
+      UserId: "1"
     }).then(newTrip=>{
       res.json(newTrip);
       res.end();
@@ -23,9 +26,11 @@ var router = express.Router();
     })
   });
   
-  // router.delete("/api/trips", (req, res)=>{
 
-  // });
+  
+  router.delete("/api/trips", (req, res)=>{
+
+  });
 
 
   module.exports = router;
