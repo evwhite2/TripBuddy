@@ -1,27 +1,4 @@
-// click handler to add new user to the Users table
-// $(".newUserForm").on("submit", event=>{
-//     event.preventDefault();
 
-    // var newUser ={
-    //     firstName : $("#firstName").val().trim(),
-    //     lastName : $("#lastName").val().trim(),
-    //     userName : $("#userName").val().trim(),
-    //     password: $("#password").val().trim(),
-    //     email : $("#email").val().trim()
-    // };
-
-    // // Send the POST request.
-    // $.ajax("/api/users", {
-    //     type: "POST",
-    //     data: newUser
-    //   }).then(function() {
-    //       console.log("new user posted");
-    //       // Reload the page to get the updated list
-    //       location.reload();
-    //     });
-    // })
-
-    
 // When the user clicks on the button, open the modal to save trip name
 $("#saveTrip").on("click", function(event1){
     event1.preventDefault()
@@ -52,7 +29,6 @@ $("#saveTripName").on("click", function(){
     $(".modal").attr("style", "display: none;")
 })
 
-
 //map:
 var mymap = L.map('mapid').setView([45, -100], 4);
 
@@ -75,7 +51,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 $("#genRouteForm").on("click", function(){
     $("label").empty();    
 });
-
 
 $("#genRouteForm").on("submit", function(event){
     event.preventDefault();
@@ -144,4 +119,5 @@ $("#genRouteForm").on("submit", function(event){
         })
     })
 })
+
 
