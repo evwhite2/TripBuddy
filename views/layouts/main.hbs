@@ -34,17 +34,18 @@
                         <li><a href="/">Home</a></li>
                         <li><a href="/signup">Sign Up</a></li>
                         <li><a href="/dashboard">Dashboard</a></li>
-                        {{# if loggedin}}
+                        {{#if loggedin}}
                             <li><a href="/trips">My Trips</a></li>
+                            <ul class="nav content-right"></ul>
                         {{/if}}
                     </ul>
 
-                    <ul class="tabs tabs-transparent">
-					{{# if loggedin}}
-						<li><a href="/logout">Log Out</a></li>
-					{{else }}
-						<li><a href="/login">Log In</a></li>
-					{{/if}}
+                    <ul class="nav content-right">
+					          {{#if loggedin}}
+						        <li><a href="/logout">Log Out</a></li>
+					          {{else }}
+						        <li><a href="/login">Log In</a></li>
+					          {{/if}}
                         
                     </ul>
                 </div>
@@ -53,17 +54,18 @@
 <main>
     <div class = "container">
        
-    <div class="row">
-        <div classs= "col s12">
-            {{# if loggedin}}
-            <h4>Where you headed {{userName}}? </h4>
-                {{else }}
-                <p>Login or Create an Account to plan your trip!</p>
-                {{/if}}
+        <div class="row">
+            <div classs= "col s12">
+                {{# if loggedin}}
+                <h4>Where you headed {{userName}}? </h4>
+                    {{else }}
+                    <p>Login or Create an Account to plan your trip!</p>
+                    {{/if}}
+            </div>
+            {{{body}}}
         </div>
-        {{{body}}}
     </div>
-
+</main>
 
 <footer class="page-footer">    
     <div class="footer-copyright">
@@ -82,7 +84,7 @@
    crossorigin=""></script>
 {{!-- local js file --}}
     <script src = "/js/index.js"></script>
-</div>
-</main>
+
+
     </body>
 </html>
