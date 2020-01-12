@@ -39,15 +39,15 @@
                             <ul class="nav content-right"></ul>
                         {{/if}}
                     </ul>
-                    {{#if loggedin}}
+
                     <ul class="nav content-right">
-					
-						<li><a href="/logout">Log Out</a></li>
-					{{else }}
-						<li><a href="/login">Log In</a></li>
-					
+					          {{#if loggedin}}
+						        <li><a href="/logout">Log Out</a></li>
+					          {{else }}
+						        <li><a href="/login">Log In</a></li>
+					          {{/if}}
+                        
                     </ul>
-                    {{/if}}
                 </div>
             </nav>
         </header> 
