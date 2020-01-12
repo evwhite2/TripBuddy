@@ -21,6 +21,11 @@ module.exports = function (sequelize, DataTypes) {
                 allowNull: false
               }
         });
+        Trip.hasMany(models.Stop, {
+            foreignKey: {
+                allowNull: true
+            }
+        })
     };
 
     return Trip;
