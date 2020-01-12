@@ -81,12 +81,17 @@ app.get('/', sessionChecker, (req, res) => {
 });
 
 app.use(routes);
-//api route to get all users with their trips
+
+// api route to get all users with their trips
 app.get("/api/users", function(req, res) {
     db.User.findAll({include: [db.Trip]}).then(function(allusers) {
       res.json(allusers);
       })
 });
+
+
+var tripRoutes = require("./routes/trips-api");
+app.use(tripRoutes)
 
 
 // route for user signup
@@ -190,32 +195,39 @@ app.route('/signup')
 // route for user's trips
 app.route('/trips')
     .get((req, res) => {
-        res.render('trips', userContent);
+        res.render('trips');
     })
 
-app.route('/trips')
-    .post((req, res)=> {
-        console.log({session: req.session})
-        db.Trip.create({
-            tripName: req.body.tripName,
-            startPt: req.body.startPt,
-            midPt: req.body.midPt,
-            endPt: req.body.endPt,
-            UserId: req.session.user.id
-        })
-        .then(trips => {
-            var tripName = trips.dataValues.tripName
-            console.log('trips processed')
-            console.log(tripName)
-            res.render('trips')
-        })
-        .catch(error => {
-            res.send(error);
-            //res.redirect('/trips');
-        });
-        console.log(JSON.stringify(req.session.user)) //logs user info (id, first, last, etc...)
-        console.log(JSON.stringify(req.session.user.id)) //logs user ID  :)
-    })
+// app.get("/api/trips", function(req, res) {
+//     db.Trip.findAll({include: [db.Stop]}).then(function(allTrips) {
+//       res.json(allTrips);
+//       })
+// });
+
+
+// app.route('/api/trips')
+//     .post((req, res)=> {
+//         console.log({session: req.session})
+//         db.Trip.create({
+//             tripName: req.body.tripName,
+//             startPt: req.body.startPt,
+//             midPt: req.body.midPt,
+//             endPt: req.body.endPt,
+//             UserId: req.session.user.id
+//         })
+//         .then((trips) => {
+//             var tripName = trips.dataValues.tripName
+//             console.log('trips processed')
+//             console.log(tripName)
+//             res.render('trips')
+//         })
+//         .catch(error => {
+//             res.send(error);
+//             //res.redirect('/trips');
+//         });
+//         console.log(JSON.stringify(req.session.user)) //logs user info (id, first, last, etc...)
+//         console.log(JSON.stringify(req.session.user.id)) //logs user ID  :)
+//     })
 
 // route for user logout
 app.get('/logout', (req, res) => {

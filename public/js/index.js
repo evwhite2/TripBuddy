@@ -1,25 +1,57 @@
 // click handler to add new user to the Users table
-$(".newUserForm").on("submit", event=>{
-    event.preventDefault();
+// $(".newUserForm").on("submit", event=>{
+//     event.preventDefault();
 
-    var newUser ={
-        firstName : $("#firstName").val().trim(),
-        lastName : $("#lastName").val().trim(),
-        userName : $("#userName").val().trim(),
-        password: $("#password").val().trim(),
-        email : $("#email").val().trim()
+    // var newUser ={
+    //     firstName : $("#firstName").val().trim(),
+    //     lastName : $("#lastName").val().trim(),
+    //     userName : $("#userName").val().trim(),
+    //     password: $("#password").val().trim(),
+    //     email : $("#email").val().trim()
+    // };
+
+    // // Send the POST request.
+    // $.ajax("/api/users", {
+    //     type: "POST",
+    //     data: newUser
+    //   }).then(function() {
+    //       console.log("new user posted");
+    //       // Reload the page to get the updated list
+    //       location.reload();
+    //     });
+    // })
+
+    
+// When the user clicks on the button, open the modal to save trip name
+$("#saveTrip").on("click", function(event1){
+    event1.preventDefault()
+    $(".modal").attr("style", "display: block;")
+})
+
+$("#saveTripName").on("click", function(){
+
+    console.log(startPt.value, startPt.value, endPt.value)
+
+    var tripName = $("#tripName").val().trim();
+    var newTrip = {
+        tripName: tripName,
+        startPt: startPt.value,
+        midPt: startPt.value,
+        endPt: endPt.value
     };
 
-    // Send the POST request.
-    $.ajax("/api/users", {
+    console.log(newTrip);
+
+    $.ajax("/api/trips",{
         type: "POST",
-        data: newUser
-      }).then(function() {
-          console.log("new user posted");
-          // Reload the page to get the updated list
-          location.reload();
-        });
-    });
+        data: newTrip
+    }).then(()=>{
+        console.log(`${newTrip.tripName} added`);
+    })
+
+    $(".modal").attr("style", "display: none;")
+})
+
 
 //map:
 var mymap = L.map('mapid').setView([45, -100], 4);
@@ -45,7 +77,6 @@ $("#genRouteForm").on("click", function(){
 });
 
 
-/*
 $("#genRouteForm").on("submit", function(event){
     event.preventDefault();
 
@@ -80,7 +111,7 @@ $("#genRouteForm").on("submit", function(event){
         callArray.push(city)
     })
 
-    console.log(callArray)
+    console.log("Calling cities ", callArray)
 
     if(callArray[0]===""){alert("Please enter at least a starting point begin")}
     
@@ -90,12 +121,11 @@ $("#genRouteForm").on("submit", function(event){
         `https://triposo.com/api/20180206/poi.json?location_id=${callArray[2]}&count=10&account=SZ0URUOA&token=n81y5enq4p7b2syavoiah56iauplghpv`
     ];
 
-    // triposoCall(queryURL)
 
     $.each(triposoURLs, function(index, queryURL){
 
         $.ajax(queryURL, {type: "GET"}).then(function(response){
-            console.log(response);
+            
                 //generate various points of interest (POI)
                 for (var i=0; i<10; i++){
                     
@@ -104,7 +134,7 @@ $("#genRouteForm").on("submit", function(event){
                     var lat = response.results[i].coordinates.latitude;
                     var lng = response.results[i].coordinates.longitude;
                     
-                    console.log("name: ", POIname, "coordinates: ", lat, lng);
+                    // console.log("name: ", POIname, "coordinates: ", lat, lng);
 
                     //add 1 marker per result
                     var marker = L.marker([lat, lng]).addTo(mymap);
@@ -114,20 +144,4 @@ $("#genRouteForm").on("submit", function(event){
         })
     })
 })
-*/
-
-
-// When the user clicks on the button, open the modal to save trip name
-    $("#saveTrip").on("click", function(event1){
-        event1.preventDefault()
-        $(".modal").attr("style", "display: block;")
-    })
-
-    $("#saveTripName").on("click", function(event2){
-        event2.preventDefault()
-        $(".modal").attr("style", "display: none;")
-
-
-    })
-
 
