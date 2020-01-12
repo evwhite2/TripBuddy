@@ -60,7 +60,7 @@ app.use((req, res, next) => {
 
 
 //dynamic user content
-var userContent = {userName: '', loggedin: false, title: "You are not logged in today", body: "Hello World", }; 
+var userContent = {userName: '', firstName: '', loggedin: false, title: "You are not logged in today", body: "Hello World", }; 
 
 
 
@@ -80,14 +80,7 @@ app.get('/', sessionChecker, (req, res) => {
     res.redirect('/login');
 });
 
-app.use(routes);
-//api route to get all users with their trips
-app.get("/api/users", function(req, res) {
-    db.User.findAll({include: [db.Trip]}).then(function(allusers) {
-      res.json(allusers);
-      })
-});
-
+//app.use(routes);
 
 // route for user signup
 app.route('/signup')
@@ -108,12 +101,13 @@ app.route('/signup')
             password: req.body.password
         })
         .then(user => {
+            console.log('first signup')
             req.session.user = user.dataValues;
             res.redirect('/dashboard');
         })
         .catch(error => {
             console.log(error)
-        //    res.redirect('/signup');  as of 1/11 at 2:30pm - redirects to signup bc 'Map container not found' error
+            res.redirect('/signup');
         });
     });
 
@@ -148,8 +142,8 @@ app.route('/login')
 app.get('/dashboard', (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
 		userContent.loggedin = true; 
-		userContent.userName = req.session.user.userName; 
-		console.log(req.session.user.userName); 
+        userContent.userName = req.session.user.userName; 
+        userContent.firstName = req.session.user.firstName;
 		userContent.title = "You are logged in"; 
 
         db.User.findOne({ where: { id: req.session.user.id, include: [db.Trip] } }).then(function(data){
@@ -163,29 +157,6 @@ app.get('/dashboard', (req, res) => {
         res.redirect('/login');
     }
 });
-
-// route for user signup
-app.route('/signup')
-    .get((req, res) => {
-        res.render('signup', userContent);
-    })
-    .post((req, res) => {
-        db.User.create({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            userName: req.body.userName,
-            email: req.body.email,
-            password: req.body.password
-        })
-        .then(user => {
-            userContent.loggedin = true; 
-            req.session.user = user.dataValues;
-            res.redirect('/dashboard');
-        })
-        .catch(error => {
-            res.redirect('/signup');
-        });
-    });
 
 // route for user's trips
 app.route('/trips')
@@ -204,7 +175,8 @@ app.route('/trips')
             UserId: req.session.user.id
         })
         .then(trips => {
-            var tripName = trips.dataValues.tripName
+            var tripName = trips.dataValues.tripName;
+            userContent.loggedin = true; 
             console.log('trips processed')
             console.log(tripName)
             res.render('trips')
