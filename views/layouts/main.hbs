@@ -36,18 +36,17 @@
                         <li><a href="/dashboard">Dashboard</a></li>
                         {{#if loggedin}}
                             <li><a href="/trips">My Trips</a></li>
-                            <ul class="nav content-right"></ul>
                         {{/if}}
                     </ul>
-                    {{#if loggedin}}
+
                     <ul class="nav content-right">
-					
+					{{#if loggedin}}
 						<li><a href="/logout">Log Out</a></li>
 					{{else }}
 						<li><a href="/login">Log In</a></li>
-					
+					{{/if}}
+                        
                     </ul>
-                    {{/if}}
                 </div>
             </nav>
         </header> 
@@ -66,7 +65,6 @@
         </div>
     </div>
 </main>
-
 <footer class="page-footer">    
     <div class="footer-copyright">
         <div class="container">
