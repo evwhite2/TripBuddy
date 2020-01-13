@@ -185,7 +185,7 @@ app.use(function (req, res, next) {
 });
 
 
-db.sequelize.sync({force: false}).then(function() {
+db.sequelize.sync({force: true}).then(function() {
 
     app.listen(app.get('port'), function() {
       console.log("App listening on PORT " + app.get('port'))
