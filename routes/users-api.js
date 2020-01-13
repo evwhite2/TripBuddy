@@ -29,7 +29,7 @@ router
         });
     });
 
-/*
+
 router.get("/api/users", function(req, res) {
     db.User.findAll({include: [db.Trip]}).then(function(allusers) {
       res.json(allusers);
@@ -58,7 +58,6 @@ router.post("/api/users", (req, res)=>{
       console.log(err, req.body.userName);
   });
  });
-*/
 
 router.delete("/api/users/:id", (req, res)=>{
     db.User.destroy({

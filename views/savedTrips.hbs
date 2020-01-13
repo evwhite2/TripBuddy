@@ -1,21 +1,26 @@
 <div class= "col s12">
     <ul>
         {{#each trip}}
-        <li class="tripList">
-            <div class="col s6">
-                <h6>{{tripName}}</h6>
-                <button class="delTrip">Delete Trip</button>
-            </div>
-            
-            <div class="col s6">
-                 <h7>Cities</p>
-            <ul>
-                <li>{{startPt}}</li>
-                <li>{{midPt}}</li>
-                <li>{{endPt}}</li>
-            </ul>
-            </div>
-        </li>
+        <div class="row">
+            <li class="tripList">
+                <div class="col s6 left">
+                    <h6>{{tripName}}</h6>
+                    <p>Created: <br>
+                    {{createdAt}}</p>
+                    <button class="delTrip" data-id="{{id}}">Delete Trip</button>
+                </div>
+                
+                <div class="col s46 right">
+                    <h7>Cities</p>
+                {{!-- <ul> --}}
+                    <li>{{startPt}}</li>
+                    <li>{{midPt}}</li>
+                    <li>{{endPt}}</li>
+                </ul>
+                </div>
+            </li>
+        </div>
+        
         {{/each}}
     </ul>
 </div>
