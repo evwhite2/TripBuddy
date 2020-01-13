@@ -1,0 +1,21 @@
+<div class= "col s12">
+    <ul>
+        {{#each trip}}
+        <li class="tripList">
+            <div class="col s6">
+                <h6>{{tripName}}</h6>
+                <button class="delTrip">Delete Trip</button>
+            </div>
+            
+            <div class="col s6">
+                 <h7>Cities</p>
+            <ul>
+                <li>{{startPt}}</li>
+                <li>{{midPt}}</li>
+                <li>{{endPt}}</li>
+            </ul>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+</div>

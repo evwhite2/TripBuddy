@@ -19,8 +19,6 @@ $("#saveTripName").on("click", function(event2){
         endPt: endPt.value
     };
 
-    console.log(newTrip);
-
     $.ajax("/api/trips",{
         type: "POST",
         data: newTrip
@@ -49,6 +47,10 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'pk.eyJ1IjoiZXZ3aGl0ZTIiLCJhIjoiY2s1MzRlc2c3MDRzOTNnbnRlNGw5NDBuciJ9.xmFw1AGepu0Rh-jUgjjzjQ'
 }).addTo(mymap);
 
+
+$(".newUserForm").on("click", function(){
+    $("label").empty();    
+});
 
 $("#genRouteForm").on("click", function(){
     $("label").empty();    

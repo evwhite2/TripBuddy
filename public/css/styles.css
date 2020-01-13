@@ -10,11 +10,11 @@ header{
     color: rgb(34, 58, 73);
 }
 
-button, footer, h4, h5{
+button, footer, h3, h4, h5, h6, h7{
     font-family: 'Sigmar One', cursive;
 }
 
-main {
+main, label, p {
     flex: 1 0 auto;  
     font-family: 'Open Sans', sans-serif;   
 }
