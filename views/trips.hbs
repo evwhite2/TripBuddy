@@ -12,19 +12,19 @@
       <div class="row center">
 
             <div class="input-field col s4">
-            <input id="startPt" name = "startPt" type="text">
+            <input id="startPt" name = "startPt" type="text" value="chicago">
             <label for="startPt">City A</label>
             <span class="helper-text" data-error="wrong" data-success="right">Your starting point</span>
             </div>
 
             <div class="input-field col s4">
-            <input id="midPt" name = "midPt" type="text">
+            <input id="midPt" name = "midPt" type="text" value="new york city">
             <label for="midPt">City B</label>
             <span class="helper-text" data-error="wrong" data-success="right">Somewhere inbetween</span>
             </div>
             
             <div class="input-field col s4">
-            <input id="endPt" name = "endPt" type="text">
+            <input id="endPt" name = "endPt" type="text" value="miami">
             <label for="endPt">City C</label>
             <span class="helper-text" data-error="wrong" data-success="right">Your destination</span>
             </div>
@@ -44,16 +44,20 @@
     
 </div>
 
-<!--TESTING DYNAMIC CONTENT-->
- <h1>
-    {{tripName}}
-</h1>   
-
-
-
-<div id="mapid" class="map"></div>
+<div class="row">
+  <div class="col s12">
+    <div id="mapid" class="map"></div>
+  </div>
 </div>
 
+
+<div class="row">
+  <div class="searchResultCards" class="col s12">
+  </div>
+</div>
+
+
+{{!-- modal to save Trip --}}
 <div id="tripModal" class="modal">
 
   <!-- Modal content -->
@@ -61,7 +65,7 @@
       <h5>Enter Trip Name</h5>
 
     <form id="tripNameForm" class="center">
-        <input id="tripName" type="text">
+        <input id="tripName" type="text" value="">
         <button id="saveTripName" class="waves-effect waves-teal btn-flat" type="submit">Save</button> 
         <button class="close waves-effect waves-teal btn-flat" type="submit">Close</button>
     </form>

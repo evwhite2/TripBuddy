@@ -9,7 +9,7 @@ var tripsAPI = require("./trips-api");
 var stopsAPI = require("./stops-api");
 
 
-router.get("/savedTrip", function(req, res) {
+router.get("/savedTrips", function(req, res) {
         db.Trip.findAll({}).then(function(data){
           tripData = {trip : data}
           res.render('savedTrips', tripData)

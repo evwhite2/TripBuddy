@@ -41,6 +41,9 @@ $(".delTrip").on("click", function(){
 //map:
 var mymap = L.map('mapid').setView([45, -100], 4);
 
+var snippets = [];
+var snippetCards = [];
+
 function fixInput(cityName){
     capArray = cityName.split("");
     var cap1 = capArray[0].toUpperCase();
@@ -57,16 +60,15 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(mymap);
 
 
-$(".newUserForm").on("click", function(){
-    $("label").empty();    
-});
-
 $("#genRouteForm").on("click", function(){
     $("label").empty();    
 });
 
+
 $("#genRouteForm").on("submit", function(event){
+
     event.preventDefault();
+    $(".searchResultCards").empty();
 
     var inputArray= [];
     var callArray = [];
@@ -109,11 +111,13 @@ $("#genRouteForm").on("submit", function(event){
         `https://triposo.com/api/20180206/poi.json?location_id=${callArray[2]}&count=10&account=SZ0URUOA&token=n81y5enq4p7b2syavoiah56iauplghpv`
     ];
 
-
+    snippets = [];
+    snippetCards = [];
+    
     $.each(triposoURLs, function(index, queryURL){
 
         $.ajax(queryURL, {type: "GET"}).then(function(response){
-            
+                
                 //generate various points of interest (POI)
                 for (var i=0; i<10; i++){
                     
@@ -122,15 +126,27 @@ $("#genRouteForm").on("submit", function(event){
                     var lat = response.results[i].coordinates.latitude;
                     var lng = response.results[i].coordinates.longitude;
                     
-                    // console.log("name: ", POIname, "coordinates: ", lat, lng);
 
                     //add 1 marker per result
                     var marker = L.marker([lat, lng]).addTo(mymap);
                     marker.bindPopup(POIname).openPopup();
 
+                        var newCard = `
+                        <div class="card horizontal">
+                        <div class="card-stacked">
+                          <div class="card-content">
+                            <h6>${POIname}</h6>
+                            <p>${POIsnippet}</p>
+                          </div>
+                        </div>
+                        </div>`
+                    
+        
+                    $(".searchResultCards").append(newCard);
+                        
                 }
         })
-    })
+    
+    });
 })
-
 

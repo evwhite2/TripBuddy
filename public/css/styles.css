@@ -10,7 +10,7 @@ header{
     color: rgb(34, 58, 73);
 }
 
-button, footer, h3, h4, h5, h6, h7{
+button, footer, h3, h4, h5, h6{
     font-family: 'Sigmar One', cursive;
 }
 
@@ -21,6 +21,14 @@ main, label, p {
 
 span{
     font-family: 'Sigmar One', cursive;
+}
+.card{
+    background-color:rgb(94, 165, 145);
+    color: white;
+}
+.cityList{
+    font-family: 'Open Sans', sans-serif;   
+    font-size: 18px;
 }
 
 .page-footer{
