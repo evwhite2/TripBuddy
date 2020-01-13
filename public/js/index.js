@@ -29,6 +29,15 @@ $("#saveTripName").on("click", function(event2){
     $(".modal").attr("style", "display: none;")
 })
 
+$(".delTrip").on("click", function(){
+    var id = $(this).data("id")
+    console.log("id", id)
+
+    $.ajax("/api/trips/"+id, {
+        type:"DELETE"
+    })
+})
+
 //map:
 var mymap = L.map('mapid').setView([45, -100], 4);
 

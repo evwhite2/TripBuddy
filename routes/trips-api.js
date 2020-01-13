@@ -27,8 +27,16 @@ var app = express();
   });
   
 
-  router.delete("/api/trips", (req, res)=>{
-
+  router.delete("/api/trips/:id", (req, res)=>{
+    db.Trip.destroy({
+      where:{
+        id: req.params.id
+      }
+    }).then((err, res)=>{
+        if(err) throw err;
+        
+    })
+    location.reload();
   });
 
 
