@@ -32,22 +32,14 @@
                 <div class="nav-content">
                     <ul class="tabs tabs-transparent">
                         <li><a href="/">Home</a></li>
-                        <li><a href="/signup">Sign Up</a></li>
-                        <li><a href="/dashboard">Dashboard</a></li>
                         {{#if loggedin}}
                             <li><a href="/trips">Build New Trip</a></li>
                             <li><a href="/savedTrips">My Trips</a></li>
-                            <ul class="nav content-right"></ul>
+                            <li><a href="/logout">Log Out</a></li>
+					    {{else}}
+                            <li><a href="/signup">Sign Up</a></li>
+                            <li><a href="/login">Log In</a></li>
                         {{/if}}
-                    </ul>
-
-                    <ul class="nav content-right">
-					          {{#if loggedin}}
-						        <li><a href="/logout">Log Out</a></li>
-					          {{else }}
-						        <li><a href="/login">Log In</a></li>
-					          {{/if}}
-                        
                     </ul>
                 </div>
             </nav>

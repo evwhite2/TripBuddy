@@ -9,7 +9,14 @@ var router = express.Router();
   });
  
   router.post("/api/stops", (req, res)=>{
-
+    db.Stop.create({
+      stopName : req.body.stopName,
+      tripID : req.body.tripID
+    }).then(function(newStop){
+      res.json(newStop);
+      res.end();
+    })
+      console.log("new stop added")
   });
 
   router.delete("/api/stops", (req, res)=>{

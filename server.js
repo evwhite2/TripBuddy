@@ -2,7 +2,7 @@
 //npm i cookie-parser express-session morgan express-handlebars body-parser express path sequelize mysql mysql2 bcrypt
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 const hbs = require("express-handlebars");
 const bodyParser = require("body-parser");
 const express = require("express");
@@ -23,7 +23,7 @@ var app = express();
 app.set('port', 8080);
 
 // set morgan to log info about our requests for development use.
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 
 // initialize body-parser to parse incoming parameters requests to req.body
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -185,7 +185,7 @@ app.use(function (req, res, next) {
 });
 
 
-db.sequelize.sync({force: true}).then(function() {
+db.sequelize.sync({force: false}).then(function() {
 
     app.listen(app.get('port'), function() {
       console.log("App listening on PORT " + app.get('port'))
