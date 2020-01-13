@@ -9,21 +9,17 @@ var tripsAPI = require("./trips-api");
 var stopsAPI = require("./stops-api");
 
 
-  router.get("/", (req, res)=>{
-      res.render('index');
-  });
-
-  router.get("/users", function(req, res) {
-    db.User.findAll({}).then(function(data){
-      var userData= { user : data };
-      res.render('users', userData)
-    })
-  });
+router.get("/savedTrip", function(req, res) {
+        db.Trip.findAll({}).then(function(data){
+          tripData = {trip : data}
+          res.render('savedTrips', tripData)
+        })
   
-  router.use(usersAPI);
+  });
 
-  router.get("/trips", function(req, res) {      
-    res.render('trips')
+
+router.get("/trips", function(req, res) {      
+  res.render('trips')
   });
 
   router.use(tripsAPI);

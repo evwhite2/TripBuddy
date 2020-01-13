@@ -11,9 +11,10 @@ const path = require("path");
 //local files
 const sequelize = require("./config/database");
 const db = require("./models");
+
 const userRoutes = require("./routes/users-api");
 const tripRoutes = require("./routes/trips-api");
-
+const htmlRoutes = require("./routes/html-routes");
 
 // invoke an instance of express application.
 var app = express();
@@ -78,6 +79,9 @@ app.get('/', sessionChecker, (req, res) => {
     res.redirect('/login');
 });
 
+
+app.use(htmlRoutes);
+
 // api Routes
 app.use(userRoutes);
 app.use(tripRoutes)
@@ -85,12 +89,10 @@ app.use(tripRoutes)
 
 // route for user signup
 app.route('/signup')
-    //.get(sessionChecker, (req, res) => {
     .get((req, res) => {
-        //res.sendFile(__dirname + '/public/signup.html');
         db.User.findAll({}).then(function(data){
             var userData= { user : data };
-            res.render('signup', userContent);
+            res.render('signup', userData);
           })
     })
     .post((req, res) => {
@@ -137,7 +139,6 @@ app.route('/login')
         });
     });
 
-// route for finding user by username
 
 // route for user's dashboard
 app.get('/dashboard', (req, res) => {
@@ -153,7 +154,7 @@ app.get('/dashboard', (req, res) => {
             var userData= { user : data };
             res.render('dashboard', userData);
           })
-        res.render('dashboard', userContent); //was index
+        res.render('dashboard', userContent);
     } else {
         res.redirect('/login');
     }

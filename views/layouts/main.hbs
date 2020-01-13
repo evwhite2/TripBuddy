@@ -35,7 +35,8 @@
                         <li><a href="/signup">Sign Up</a></li>
                         <li><a href="/dashboard">Dashboard</a></li>
                         {{#if loggedin}}
-                            <li><a href="/trips">My Trips</a></li>
+                            <li><a href="/trips">Build New Trip</a></li>
+                            <li><a href="/savedTrip">My Trips</a></li>
                             <ul class="nav content-right"></ul>
                         {{/if}}
                     </ul>
@@ -55,13 +56,6 @@
     <div class = "container">
        
         <div class="row">
-            <div classs= "col s12">
-                {{# if loggedin}}
-                <h4>Where you headed {{userName}}? </h4>
-                    {{else }}
-                    <p>Login or Create an Account to plan your trip!</p>
-                    {{/if}}
-            </div>
             {{{body}}}
         </div>
     </div>

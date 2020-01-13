@@ -27,7 +27,6 @@ var app = express();
   });
   
 
-  
   router.delete("/api/trips", (req, res)=>{
 
   });
