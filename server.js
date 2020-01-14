@@ -18,9 +18,10 @@ const htmlRoutes = require("./routes/html-routes");
 
 // invoke an instance of express application.
 var app = express();
+const PORT = process.env.PORT || 8080;
 
 // set our application port
-app.set('port', 8080);
+app.set('port', PORT);
 
 // set morgan to log info about our requests for development use.
 // app.use(morgan('dev'));
