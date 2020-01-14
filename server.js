@@ -164,8 +164,23 @@ app.get('/dashboard', (req, res) => {
 // route for user's trips
 app.route('/trips')
     .get((req, res) => {
-        res.render('trips');
-    })
+        if (req.session.user && req.cookies.user_sid) {
+            userContent.loggedin = true; 
+            userContent.userName = req.session.user.userName; 
+            userContent.firstName = req.session.user.firstName;
+            userContent.title = "You are logged in"; 
+    
+            db.User.findOne({ where: { id: req.session.user.id, include: [db.Trip] } }).then(function(data){
+                console.log('user dashboard processed');
+                console.log(data);
+                var userData= { user : data };
+                res.render('trips', userData);
+              })
+            res.render('trips', userContent);
+        } else {
+            res.redirect('/login');
+        }
+})
 
 // route for user logout
 app.get('/logout', (req, res) => {
