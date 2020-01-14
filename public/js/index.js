@@ -22,7 +22,7 @@ $("#saveTripName").on("click", function(event2){
     var newTrip = {
         tripName: tripName,
         startPt: startPt.value,
-        midPt: startPt.value,
+        midPt: midPt.value,
         endPt: endPt.value
     };
 
