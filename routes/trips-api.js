@@ -1,9 +1,10 @@
 var db = require("../models");
 var express = require("express");
 var router = express.Router();
-var app = express();
 
-// var user = "";
+//generate user specific info
+const userContent = { userName: '', firstName: '', loggedin: false, body: 'foo'}
+
 
   router.get("/api/trips", function(req, res) {
     db.Trip.findAll({}).then(function(alltrips) {
@@ -12,14 +13,15 @@ var app = express();
   });
 
   router.post("/api/trips", (req, res)=>{
+
     db.Trip.create({
       tripName: req.body.tripName,
       startPt: req.body.startPt,
       midPt: req.body.midPt,
       endPt: req.body.endPt,
-      UserId: "1"
+      UserId: req.session.user.id,
     }).then(newTrip=>{
-      res.json(newTrip);
+      res.send("Trip Saved: "+ newTrip.tripName)
       res.end();
     }).catch(function(err){
         console.log("error:", err)
@@ -34,9 +36,8 @@ var app = express();
       }
     }).then((err, res)=>{
         if(err) throw err;
-        
-    })
-    location.reload();
+        location("/trip").reload();
+      })
   });
 
 

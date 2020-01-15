@@ -36,6 +36,10 @@ $("#saveTripName").on("click", function(event2){
     $(".modal").attr("style", "display: none;")
 })
 
+$(".savePOI").click(function(){
+    console.log("test")
+});
+
 $(".delTrip").on("click", function(){
     var id = $(this).data("id")
     console.log("id", id)
@@ -44,6 +48,7 @@ $(".delTrip").on("click", function(){
         type:"DELETE"
     })
 })
+
 
 //map:
 var mymap = L.map('mapid').setView([45, -100], 4);
@@ -145,7 +150,8 @@ $("#genRouteForm").on("submit", function(event){
                             <h6>${POIname}</h6>
                             <p>${POIsnippet}</p>
                           </div>
-                        </div>
+                          </div>
+                          <button class="savePOI">Save</button>
                         </div>`
                     
         
