@@ -36,6 +36,10 @@ span{
     font-size: 18px;
 }
 
+.increaseTop{
+    margin-top: 20px;
+}
+
 .page-footer{
     background-color: rgb(94, 165, 115);
 }

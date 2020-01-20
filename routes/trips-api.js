@@ -36,7 +36,9 @@ const userContent = { userName: '', firstName: '', loggedin: false, body: 'foo'}
       }
     }).then((err, res)=>{
         if(err) throw err;
+        //auto refresh is not working, manual refresh does, however
         location("/trip").reload();
+        res.end()
       })
   });
 
