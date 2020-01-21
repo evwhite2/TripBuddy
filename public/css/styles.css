@@ -19,8 +19,8 @@ main, label, p {
     font-family: 'Open Sans', sans-serif;   
 }
 
-image{
-    height: 50%;
+img{
+    height: 100%;
     width: 100%;
 }
 
