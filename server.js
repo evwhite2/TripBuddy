@@ -47,9 +47,10 @@ app.use(session({
 app.use(express.static("public"));
 
 // handle bars config
-app.engine('hbs', hbs({extname: 'hbs',defaultLayout: 'main', layoutsDir: __dirname + '/views/layouts'})); 
+app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'main', layoutsDir: __dirname + '/views/layouts'})); 
 app.set('views', path.join(__dirname, 'views')); 
 app.set('view engine', 'hbs'); 
+app.enable('view cache');
 // This middleware will check if user's cookie is still saved in browser 
 //and user is not set, then automatically log the user out.
 // cookie remains saved in the browser.
