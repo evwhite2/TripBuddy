@@ -1,10 +1,4 @@
-
-  $('.carousel.carousel-slider').carousel({
-    fullWidth: true,
-    numVisible: 6
-  });
-  $('.carousel.carousel-slider').carousel()   
-        
+       
 
 // When the user clicks on the button, open the modal to save trip name
 $("#saveTrip").on("click", function(event1){
