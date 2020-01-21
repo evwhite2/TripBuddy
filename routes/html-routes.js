@@ -30,26 +30,19 @@ router.get("/trips", function(req, res) {
 
  
   router.get("/savedTrips", function(req, res) {
-    if (req.session.user && req.cookies.user_sid) {
-      userContent.loggedin = true; 
-      userContent.userName = req.session.user.userName; 
-      userContent.firstName = req.session.user.firstName;
-      userContent.title = "You are logged in"; 
-
-
       db.Trip.findAll({
-        where:{
-          UserId: req.session.user.id
-        }
+        // where: {
+        //   UserId: req.session.user.id
+        // }
       }).then(function(data){
-        tripData = {trip : data}
-        console.log("data!!!", data) //this is still not rendering all navigation tabs when user is logged in
+        var tripArray = [];
+        data.forEach(trip=>{
+          tripArray.push(trip.dataValues)
+          });
+        var tripData = {trip : tripArray};
         res.render('savedTrips', tripData)
       })
   
-    }else{
-      res.redirect('/login');
-    }
   });
 
   router.use(tripsAPI);
